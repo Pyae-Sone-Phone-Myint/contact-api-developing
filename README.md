@@ -60,7 +60,7 @@
   http://127.0.0.1:8000/api/v1/contact
 ```
 
-### Create Contact (Get)
+### Create Contact (Post)
 
 ```http
   http://127.0.0.1:8000/api/v1/contact
