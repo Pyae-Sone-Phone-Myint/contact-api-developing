@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ApiAuthController;
 use App\Http\Controllers\ContactApiController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AcceptJson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +32,8 @@ Route::prefix('v1')->middleware(AcceptJson::class)->group(function () {
             Route::post("logout-all", 'logoutAll');
             Route::post("devices", 'devices');
         });
+        Route::get('favorites', [UserController::class, 'getFavoriteContacts']);
+        Route::post('favorite/add/{id}', [UserController::class, 'addFavoriteContacts']);
     });
 
     Route::post("register", [ApiAuthController::class, 'register']);
