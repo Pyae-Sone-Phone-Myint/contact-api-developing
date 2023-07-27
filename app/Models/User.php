@@ -22,6 +22,11 @@ class User extends Authenticatable
         return $this->belongsToMany(ContactApi::class, Favorite::class);
     }
 
+    public function records()
+    {
+        return $this->hasMany(SearchRecord::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

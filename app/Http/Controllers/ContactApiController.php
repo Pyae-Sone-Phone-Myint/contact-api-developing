@@ -6,6 +6,8 @@ use App\Models\ContactApi;
 use App\Http\Requests\StoreContactApiRequest;
 use App\Http\Requests\UpdateContactApiRequest;
 use App\Http\Resources\ContactApiResource;
+use App\Models\SearchRecord;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -16,11 +18,33 @@ class ContactApiController extends Controller
      */
     public function index()
     {
-        $contacts = ContactApi::latest('id')->paginate(5)->withQueryString();
+        // $contacts = ContactApi::latest('id')->paginate(5)->withQueryString();
+
+        $contacts = ContactApi::when(request()->has("keyword"), function ($query) {
+            $query->where(function (Builder $builder) {
+                $keyword = request()->keyword;
+
+                $builder->where("name", "LIKE", "%" . $keyword . "%");
+                $builder->orWhere("phone_number", "LIKE", "%" . $keyword . "%");
+            });
+        })
+            ->where("user_id", Auth::id())
+            ->latest("id")
+            ->paginate(10)
+            ->withQueryString();
 
         // return response()->json([
         //     "message" => $contacts
         // ]);
+
+        if (request()->has('keyword')) {
+            $keyword = request()->keyword;
+
+            SearchRecord::create([
+                "keyword" => $keyword,
+                "user_id" => Auth::id()
+            ]);
+        };
 
         return ContactApiResource::collection($contacts);
     }
