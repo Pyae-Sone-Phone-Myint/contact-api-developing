@@ -21,6 +21,7 @@ class ContactApiFactory extends Factory
             "country_code" => 95,
             "phone_number" => fake()->numerify('#########'),
             "email" => fake()->email(),
+            "user_id" => rand(1,5)
         ];
     }
 }
