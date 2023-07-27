@@ -35,7 +35,8 @@ Route::prefix('v1')->middleware(AcceptJson::class)->group(function () {
             Route::post("devices", 'devices');
         });
         Route::get('favorites', [UserController::class, 'getFavoriteContacts']);
-        Route::post('favorite/add/{id}', [UserController::class, 'addFavoriteContacts']);
+        Route::post('favorite/add/{id}', [UserController::class, 'addFavoriteContact']);
+        Route::post('favorite/remove/{id}', [UserController::class, 'removeFavoriteContact']);
     });
 
     Route::post("register", [ApiAuthController::class, 'register']);
