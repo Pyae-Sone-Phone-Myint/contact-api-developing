@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->middleware(AcceptJson::class)->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('contact', ContactApiController::class);
+        Route::post('contact/restore/{id}', [ContactApiController::class, 'restore']);
+        Route::delete('contact/force-delete/{id}', [ContactApiController::class, 'forceDelete']);
         Route::controller(ApiAuthController::class)->group(function () {
             Route::post("logout", 'logout');
             Route::post("logout-all", 'logoutAll');

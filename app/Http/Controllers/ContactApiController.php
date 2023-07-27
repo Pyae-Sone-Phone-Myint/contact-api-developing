@@ -21,7 +21,7 @@ class ContactApiController extends Controller
         // return response()->json([
         //     "message" => $contacts
         // ]);
-        
+
         return ContactApiResource::collection($contacts);
     }
 
@@ -134,7 +134,44 @@ class ContactApiController extends Controller
         }
         $contact->delete();
         return response()->json([
-            "message" => "contact deleted"
+            "message" => "contact removed"
+        ]);
+    }
+
+    public function forceDelete(string $id)
+    {
+        $contact = ContactApi::withTrashed()->find($id);
+        // return $contact;
+        if (is_null($contact)) {
+            return response()->json([
+                // "success" => false,
+                "message" => "Contact not found",
+            ], 404);
+        }
+        if (Gate::denies('forceDelete', $contact)) {
+            return response()->json([
+                "message" => "You are not allowed"
+            ]);
+        }
+        $contact->forceDelete();
+
+        return response()->json([
+            "message" => "Contact deleted successfully"
+        ]);
+    }
+
+    public function restore(string $id)
+    {
+        $contact = ContactApi::withTrashed()->find($id);
+        if (Gate::denies('restore', $contact)) {
+            return response()->json([
+                "message" => "You are not allowed"
+            ]);
+        }
+        $contact->restore();
+
+        return response()->json([
+            "message" => "Contact restored"
         ]);
     }
 }

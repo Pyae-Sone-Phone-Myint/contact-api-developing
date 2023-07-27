@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('company')->nullable();
             $table->string('job-title')->nullable();
             $table->string('birthday')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -53,7 +53,7 @@ class ContactApiPolicy
      */
     public function restore(User $user, ContactApi $contactApi): bool
     {
-        //
+        return $user->id == $contactApi->user_id;
     }
 
     /**
@@ -61,6 +61,6 @@ class ContactApiPolicy
      */
     public function forceDelete(User $user, ContactApi $contactApi): bool
     {
-        //
+        return $user->id == $contactApi->user_id;
     }
 }
