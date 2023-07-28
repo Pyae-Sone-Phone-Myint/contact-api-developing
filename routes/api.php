@@ -42,7 +42,7 @@ Route::prefix('v1')->middleware(AcceptJson::class)->group(function () {
         Route::post('favorite/remove/{id}', [UserController::class, 'removeFavoriteContact']);
 
         Route::post('contact/get-records', [SearchRecordController::class,'getRecords']);
-        Route::post('contact/delete-records',[SearchRecordController::class, 'deleteRecords']);
+        Route::delete('contact/delete-records',[SearchRecordController::class, 'deleteRecords']);
     });
 
     Route::post("register", [ApiAuthController::class, 'register']);

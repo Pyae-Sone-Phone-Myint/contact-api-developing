@@ -48,19 +48,19 @@
 
 ## Contacts
 
-### Get Contacts (Get)
+#### Get Contacts (Get)
 
 ```http
   http://127.0.0.1:8000/api/v1/contact
 ```
 
-### Get Single Contact (Get)
+#### Get Single Contact (Get)
 
 ```http
   http://127.0.0.1:8000/api/v1/contact
 ```
 
-### Create Contact (Post)
+#### Create Contact (Post)
 
 ```http
   http://127.0.0.1:8000/api/v1/contact
@@ -76,7 +76,7 @@
 | jog_title    | string  | **Nullable** job               |
 | birthday     | date    | **Nullable** date of birth     |
 
-### Update Contact (Put)
+#### Update Contact (Put)
 
 ```http
   http://127.0.0.1:8000/api/v1/contact/{id}
@@ -92,8 +92,56 @@
 | jog_title    | string  | **Nullable** job               |
 | birthday     | date    | **Nullable** date of birth     |
 
-### Delete Contact (Delete)
+## Deleting Method
+
+#### Delete Contact (Delete)
 
 ```http
   http://127.0.0.1:8000/api/v1/contact/{id}
+```
+
+#### Restore (Post)
+
+```http
+  http://127.0.0.1:8000/api/v1/contact/restore/{id}
+```
+
+#### Force Delete Contact (Delete)
+
+```http
+  http://127.0.0.1:8000/api/v1/contact/force-delete/{id}
+```
+
+## Favorite Contact
+
+#### Add favorite (Post)
+
+```http
+  http://127.0.0.1:8000/api/v1/favorite/add/{id}
+```
+
+#### Favorite Lists (Post)
+
+```http
+  http://127.0.0.1:8000/api/v1/favorites
+```
+
+#### Remove favorite (Post)
+
+```http
+  http://127.0.0.1:8000/api/v1/favorite/remove/{id}
+```
+
+## Recently Search
+
+#### Get Search Records (Post)
+
+```http
+  http://127.0.0.1:8000/api/v1/contact/get-records
+```
+
+#### Delete All Records (Delete)
+
+```http
+  http://127.0.0.1:8000/api/v1/contact/delete-records
 ```

@@ -14,7 +14,12 @@ class UserController extends Controller
         $user = User::findOrFail(Auth::id());
 
         // Retrieve the favorite contacts for the given user
-        $favoriteContacts = $user->favorites;
+        $favoriteContacts = $user->favorites->toArray();
+        if(empty($favoriteContacts)){
+            return response()->json([
+                "message" => "There is no favorite contact"
+            ]);
+        }
 
         return response()->json(['favorites' => $favoriteContacts], 200);
     }
