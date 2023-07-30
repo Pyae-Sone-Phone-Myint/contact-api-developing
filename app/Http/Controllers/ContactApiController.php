@@ -9,6 +9,7 @@ use App\Http\Resources\ContactApiResource;
 use App\Models\SearchRecord;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -159,6 +160,7 @@ class ContactApiController extends Controller
      */
     public function destroy(ContactApi $contactApi, string $id)
     {
+        $user = User::find(Auth::id());
         $contact = ContactApi::find($id);
         if (is_null($contact)) {
             return response()->json([
@@ -172,6 +174,8 @@ class ContactApiController extends Controller
                 "message" => "You are not allowed"
             ]);
         }
+
+        $user->favorites()->detach($contact);
         $contact->delete();
         return response()->json([
             "message" => "contact removed"
@@ -181,6 +185,7 @@ class ContactApiController extends Controller
     public function forceDelete(string $id)
     {
         $contact = ContactApi::withTrashed()->find($id);
+
         // return $contact;
         if (is_null($contact)) {
             return response()->json([
@@ -193,21 +198,46 @@ class ContactApiController extends Controller
                 "message" => "You are not allowed"
             ]);
         }
-        $contact->forceDelete();
+        if ($contact->trashed()) {
+            $contact->forceDelete();
+            return response()->json([
+                "message" => "Contact deleted successfully"
+            ]);
+        };
 
         return response()->json([
-            "message" => "Contact deleted successfully"
+            "message" => "There is no contact to delete."
         ]);
     }
 
+    public function forceDeleteAll()
+    {
+        $contact = ContactApi::onlyTrashed()->get();
+        // return $contact;
+        if(empty($contact->toArray())) {
+            return response()->json([
+                "message" => "There is no contacts to delete"
+            ]);
+        }
+        $contact->each->forceDelete();
+        return response()->json([
+            "message" => "Deleted all contacts successfully"
+        ]);
+    }
+
+
     public function restore(string $id)
     {
+
         $contact = ContactApi::withTrashed()->find($id);
         if (Gate::denies('restore', $contact)) {
             return response()->json([
                 "message" => "You are not allowed"
             ]);
         }
+        $contact->update([
+            "is_favorite" => false,
+        ]);
         $contact->restore();
 
         return response()->json([

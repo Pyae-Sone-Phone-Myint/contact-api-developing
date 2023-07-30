@@ -30,6 +30,7 @@ Route::prefix('v1')->middleware(AcceptJson::class)->group(function () {
         Route::apiResource('contact', ContactApiController::class);
         Route::post('contact/restore/{id}', [ContactApiController::class, 'restore']);
         Route::delete('contact/force-delete/{id}', [ContactApiController::class, 'forceDelete']);
+        Route::post('contact/force-delete-all', [ContactApiController::class, 'forceDeleteAll']);
 
         Route::controller(ApiAuthController::class)->group(function () {
             Route::post("logout", 'logout');
@@ -41,8 +42,8 @@ Route::prefix('v1')->middleware(AcceptJson::class)->group(function () {
         Route::post('favorite/{id}', [UserController::class, 'addFavoriteContact']);
         // Route::post('favorite/remove/{id}', [UserController::class, 'removeFavoriteContact']);
 
-        Route::post('contact/get-records', [SearchRecordController::class,'getRecords']);
-        Route::delete('contact/delete-records',[SearchRecordController::class, 'deleteRecords']);
+        Route::post('contact/get-records', [SearchRecordController::class, 'getRecords']);
+        Route::delete('contact/delete-records', [SearchRecordController::class, 'deleteRecords']);
     });
 
     Route::post("register", [ApiAuthController::class, 'register']);
