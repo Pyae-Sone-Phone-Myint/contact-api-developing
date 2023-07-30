@@ -56,11 +56,6 @@ class ContactApiController extends Controller
      */
     public function store(StoreContactApiRequest $request)
     {
-        $request->validate([
-            "name" => "required",
-            "country_code" => "required|min:1|max:193",
-            "phone_number" => "required",
-        ]);
 
         $contact = ContactApi::create([
             "name" => $request->name,
@@ -116,11 +111,6 @@ class ContactApiController extends Controller
      */
     public function update(UpdateContactApiRequest $request, ContactApi $contactApi, string $id)
     {
-        $request->validate([
-            "name" => "nullable|min:1|max:20",
-            "country_code" => "nullable|integer|min:1|max:193",
-            "phone_number" => "nullable|min:7|max:15",
-        ]);
 
         $contact = ContactApi::find($id);
 
@@ -214,7 +204,7 @@ class ContactApiController extends Controller
     {
         $contact = ContactApi::onlyTrashed()->get();
         // return $contact;
-        if(empty($contact->toArray())) {
+        if (empty($contact->toArray())) {
             return response()->json([
                 "message" => "There is no contacts to delete"
             ]);

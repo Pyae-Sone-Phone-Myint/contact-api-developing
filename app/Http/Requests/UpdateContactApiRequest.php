@@ -22,7 +22,13 @@ class UpdateContactApiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => "nullable|min:1|max:20",
+            "country_code" => "nullable|integer|min:1|max:193",
+            "phone_number" => "nullable|min:7|max:15",
+            "email" => "nullable|email",
+            "company" => "nullable",
+            "job_title" => "nullable",
+            "birthday" => "nullable",
         ];
     }
 }

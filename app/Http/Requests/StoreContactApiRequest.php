@@ -22,7 +22,14 @@ class StoreContactApiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => "required",
+            "country_code" => "required|min:1|max:193",
+            "phone_number" => "required|min:7|max:15",
+            "email" => "nullable|email",
+            "company" => "nullable",
+            "job_title" => "nullable",
+            "birthday" => "nullable",
+            "is_favorite" => "required"
         ];
     }
 }

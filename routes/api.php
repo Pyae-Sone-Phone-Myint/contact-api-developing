@@ -28,9 +28,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->middleware(AcceptJson::class)->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('contact', ContactApiController::class);
-        Route::post('contact/restore/{id}', [ContactApiController::class, 'restore']);
-        Route::delete('contact/force-delete/{id}', [ContactApiController::class, 'forceDelete']);
-        Route::post('contact/force-delete-all', [ContactApiController::class, 'forceDeleteAll']);
+        Route::controller(ContactApiController::class)->group(function () {
+            Route::post('contact/restore/{id}',  'restore');
+            Route::delete('contact/force-delete/{id}',  'forceDelete');
+            Route::post('contact/force-delete-all',  'forceDeleteAll');
+        });
+
 
         Route::controller(ApiAuthController::class)->group(function () {
             Route::post("logout", 'logout');
@@ -38,14 +41,21 @@ Route::prefix('v1')->middleware(AcceptJson::class)->group(function () {
             Route::post("devices", 'devices');
         });
 
-        Route::get('favorites', [UserController::class, 'getFavoriteContacts']);
-        Route::post('favorite/{id}', [UserController::class, 'addFavoriteContact']);
-        // Route::post('favorite/remove/{id}', [UserController::class, 'removeFavoriteContact']);
+        Route::controller(UserController::class)->group(function () {
 
-        Route::post('contact/get-records', [SearchRecordController::class, 'getRecords']);
-        Route::delete('contact/delete-records', [SearchRecordController::class, 'deleteRecords']);
+            Route::get('favorites', 'getFavoriteContacts');
+            Route::post('favorite/{id}', 'addFavoriteContact');
+            // Route::post('favorite/remove/{id}','removeFavoriteContact');
+        });
+
+        Route::controller(SearchRecordController::class)->group(function () {
+            Route::post('contact/get-records', 'getRecords');
+            Route::delete('contact/delete-records', 'deleteRecords');
+        });
     });
 
-    Route::post("register", [ApiAuthController::class, 'register']);
-    Route::post("login", [ApiAuthController::class, 'login']);
+    Route::controller(ApiAuthController::class)->group(function () {
+        Route::post("register", 'register');
+        Route::post("login", 'login');
+    });
 });

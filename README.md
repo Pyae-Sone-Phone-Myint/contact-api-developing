@@ -54,6 +54,8 @@
   http://127.0.0.1:8000/api/v1/contact
 ```
 
+##### Note : you can search by using name and phone number 
+
 #### Get Single Contact (Get)
 
 ```http
@@ -112,24 +114,26 @@
   http://127.0.0.1:8000/api/v1/contact/force-delete/{id}
 ```
 
+#### Force Delete All Contact (Post)
+
+```http
+  http://127.0.0.1:8000/api/v1/contact/force-delete-all
+```
+
 ## Favorite Contact
 
 #### Add favorite (Post)
 
 ```http
-  http://127.0.0.1:8000/api/v1/favorite/add/{id}
+  http://127.0.0.1:8000/api/v1/favorite/{id}
 ```
+
+##### Note : you could add or remove to favorite list
 
 #### Favorite Lists (Post)
 
 ```http
   http://127.0.0.1:8000/api/v1/favorites
-```
-
-#### Remove favorite (Post)
-
-```http
-  http://127.0.0.1:8000/api/v1/favorite/remove/{id}
 ```
 
 ## Recently Search
