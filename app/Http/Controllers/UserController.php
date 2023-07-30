@@ -15,7 +15,7 @@ class UserController extends Controller
 
         // Retrieve the favorite contacts for the given user
         $favoriteContacts = $user->favorites->toArray();
-        if(empty($favoriteContacts)){
+        if (empty($favoriteContacts)) {
             return response()->json([
                 "message" => "There is no favorite contact"
             ]);
@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         $user = User::find(Auth::id());
         $contact = ContactApi::find($id);
-        // return $contact;
+        // $contact->is_favorite;
         // return $user->id;
 
 
@@ -41,7 +41,11 @@ class UserController extends Controller
 
         // Check if the contact is already in the user's favorites
         if ($user->favorites->contains($contact)) {
-            return response()->json(['message' => 'Contact is already in favorites.'], 422);
+            $contact->update([
+                "is_favorite" => false
+            ]);
+            $user->favorites()->detach($contact);
+            return response()->json(['message' => 'remove contact successfully'], 422);
         }
 
         if ($user->id != $contact->user_id) {
@@ -50,28 +54,34 @@ class UserController extends Controller
             ]);
         }
 
+
+
+        $contact->update([
+            "is_favorite" => true,
+        ]);
         // Add the contact to the user's favorites
         $user->favorites()->attach($contact);
+
 
         return response()->json(['message' => 'Contact added to favorites successfully.'], 200);
     }
 
-    public function removeFavoriteContact($id)
-    {
-        $user = User::find(Auth::id());
-        $contact = ContactApi::find($id);
+    // public function removeFavoriteContact($id)
+    // {
+    //     $user = User::find(Auth::id());
+    //     $contact = ContactApi::find($id);
 
-        if ($user->id != $contact->user_id) {
-            return response()->json([
-                'message' => "You are not allowed"
-            ]);
-        }
+    //     if ($user->id != $contact->user_id) {
+    //         return response()->json([
+    //             'message' => "You are not allowed"
+    //         ]);
+    //     }
 
-        $user->favorites()->detach($contact);
-        return response()->json([
-            "message" => "remove contact successfully"
-        ]);
-        // return $user->favorites->pluck('id')->toArray();
+    //     $user->favorites()->detach($contact);
+    //     return response()->json([
+    //         "message" => "remove contact successfully"
+    //     ]);
+    //     // return $user->favorites->pluck('id')->toArray();
 
-    }
+    // }
 }

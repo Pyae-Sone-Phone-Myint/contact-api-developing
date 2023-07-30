@@ -17,10 +17,12 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('country_code');
             $table->string('phone_number');
+            $table->boolean('is_favorite')->default(false);
             $table->string('email')->nullable();
             $table->string('company')->nullable();
-            $table->string('job-title')->nullable();
+            $table->string('job_title')->nullable();
             $table->string('birthday')->nullable();
+            $table->string("photo")->default(config('info.default_contact_photo'));
             $table->softDeletes();
             $table->timestamps();
         });

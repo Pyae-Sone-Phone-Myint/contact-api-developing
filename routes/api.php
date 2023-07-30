@@ -38,8 +38,8 @@ Route::prefix('v1')->middleware(AcceptJson::class)->group(function () {
         });
 
         Route::get('favorites', [UserController::class, 'getFavoriteContacts']);
-        Route::post('favorite/add/{id}', [UserController::class, 'addFavoriteContact']);
-        Route::post('favorite/remove/{id}', [UserController::class, 'removeFavoriteContact']);
+        Route::post('favorite/{id}', [UserController::class, 'addFavoriteContact']);
+        // Route::post('favorite/remove/{id}', [UserController::class, 'removeFavoriteContact']);
 
         Route::post('contact/get-records', [SearchRecordController::class,'getRecords']);
         Route::delete('contact/delete-records',[SearchRecordController::class, 'deleteRecords']);

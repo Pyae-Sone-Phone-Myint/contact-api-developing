@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ContactApi extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['name', 'country_code', "phone_number", "user_id"];
+    protected $fillable = ['name', 'country_code', "phone_number", "user_id", "is_favorite", "email", "company", "job_title", "birthday"];
 
     public function user()
     {

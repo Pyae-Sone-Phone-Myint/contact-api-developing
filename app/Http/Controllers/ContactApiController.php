@@ -7,6 +7,7 @@ use App\Http\Requests\StoreContactApiRequest;
 use App\Http\Requests\UpdateContactApiRequest;
 use App\Http\Resources\ContactApiResource;
 use App\Models\SearchRecord;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -65,7 +66,17 @@ class ContactApiController extends Controller
             "country_code" => $request->country_code,
             "phone_number" => $request->phone_number,
             "user_id" => Auth::id(),
+            "is_favorite" => $request->is_favorite,
+            "email" => $request->email,
+            "company" => $request->company,
+            "job_title" => $request->job_title,
+            "birthday" => $request->birthday
         ]);
+
+        if ($request->is_favorite == true) {
+            $user = User::find(Auth::id());
+            $user->favorites()->attach($contact);
+        };
 
         return response()->json([
             "message" => "success",
@@ -129,7 +140,12 @@ class ContactApiController extends Controller
         $contact->update([
             "name" => $request->name,
             "country_code" => $request->country_code,
-            "phone_number" => $request->phone_number
+            "phone_number" => $request->phone_number,
+            "is_favorite" => $request->is_favorite,
+            "email" => $request->email,
+            "company" => $request->company,
+            "job_title" => $request->job_title,
+            "birthday" => $request->birthday
         ]);
 
         return response()->json([

@@ -13,6 +13,6 @@ class ContactApiSeeder extends Seeder
      */
     public function run(): void
     {
-        ContactApi::factory(100)->create();
+        ContactApi::factory(20)->create();
     }
 }
