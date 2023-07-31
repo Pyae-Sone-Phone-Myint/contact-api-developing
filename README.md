@@ -54,7 +54,7 @@
   http://127.0.0.1:8000/api/v1/contact
 ```
 
-##### Note : you can search by using name and phone number 
+##### Note : you can search by using name and phone number
 
 #### Get Single Contact (Get)
 
@@ -73,10 +73,12 @@
 | name         | string  | **Required** example name      |
 | country_code | integer | **Required** +95               |
 | phone_number | number  | **Required** 09978987654       |
+| is_favorite  | boolean | **Required** false             |
 | email        | string  | **Nullable** example@gmail.com |
 | company      | string  | **Nullable** company name      |
 | jog_title    | string  | **Nullable** job               |
 | birthday     | date    | **Nullable** date of birth     |
+| photo        | string  | **Nullable** user.png          |
 
 #### Update Contact (Put)
 
@@ -89,10 +91,12 @@
 | name         | string  | **Required** example name      |
 | country_code | integer | **Required** +95               |
 | phone_number | number  | **Required** 09978987654       |
+| is_favorite  | boolean | **Required** false             |
 | email        | string  | **Nullable** example@gmail.com |
 | company      | string  | **Nullable** company name      |
 | jog_title    | string  | **Nullable** job               |
 | birthday     | date    | **Nullable** date of birth     |
+| photo        | string  | **Nullable** user.png          |
 
 ## Deleting Method
 

@@ -139,6 +139,11 @@ class ContactApiController extends Controller
             "birthday" => $request->birthday
         ]);
 
+        if ($request->is_favorite == true) {
+            $user = User::find(Auth::id());
+            $user->favorites()->attach($contact);
+        };
+
         return response()->json([
             "message" => "success",
             "data" => $contact
