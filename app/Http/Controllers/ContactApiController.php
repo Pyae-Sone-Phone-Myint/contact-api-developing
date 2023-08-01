@@ -177,6 +177,33 @@ class ContactApiController extends Controller
         ]);
     }
 
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->ids;
+        // return $ids;
+        $user = User::find(Auth::id());
+        $contacts = ContactApi::whereIn("id", $ids)->get();
+        // return $contacts;
+        if (empty($ids)) {
+            return response()->json([
+                "message" => "There is no contacts to delete"
+            ]);
+        }
+
+        foreach ($contacts as $contact) {
+            if ($user->id != $contact->user_id) {
+                return response()->json([
+                    'message' => "You are not allowed"
+                ]);
+            }
+        }
+        ContactApi::whereIn('id', $ids)->delete();
+
+        return response()->json([
+            "message" => "Remove all contacts."
+        ]);
+    }
+
     public function forceDelete(string $id)
     {
         $contact = ContactApi::withTrashed()->find($id);
@@ -237,6 +264,21 @@ class ContactApiController extends Controller
 
         return response()->json([
             "message" => "Contact restored"
+        ]);
+    }
+
+    public function restoreAll()
+    {
+        $contact = ContactApi::onlyTrashed()->get();
+        // return $contact;
+        if (empty($contact->toArray())) {
+            return response()->json([
+                "message" => "There is no contacts to restore"
+            ]);
+        }
+        $contact->each->restore();
+        return response()->json([
+            "message" => "Restore all contacts successfully"
         ]);
     }
 }

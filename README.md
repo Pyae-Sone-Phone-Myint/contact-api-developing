@@ -106,10 +106,24 @@
   http://127.0.0.1:8000/api/v1/contact/{id}
 ```
 
+#### Multiple Delete Contact (Post)
+
+```http
+  http://127.0.0.1:8000/api/v1/contact/bulk-delete
+```
+
+###### Note : request must be array , keyword name -> ids => []
+
 #### Restore (Post)
 
 ```http
   http://127.0.0.1:8000/api/v1/contact/restore/{id}
+```
+
+#### Restore All Contacts (Post)
+
+```http
+  http://127.0.0.1:8000/api/v1/contact/restore-all
 ```
 
 #### Force Delete Contact (Delete)

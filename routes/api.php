@@ -30,6 +30,8 @@ Route::prefix('v1')->middleware(AcceptJson::class)->group(function () {
         Route::apiResource('contact', ContactApiController::class);
         Route::controller(ContactApiController::class)->group(function () {
             Route::post('contact/restore/{id}',  'restore');
+            Route::post('contact/restore-all',  'restoreAll');
+            Route::post('contact/bulk-delete',  'bulkDelete');
             Route::delete('contact/force-delete/{id}',  'forceDelete');
             Route::post('contact/force-delete-all',  'forceDeleteAll');
         });
