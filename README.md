@@ -4,7 +4,7 @@
 
 #### Login (Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/login
 ```
 
@@ -15,7 +15,7 @@
 
 #### Register (Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/register
 ```
 
@@ -30,19 +30,19 @@
 
 #### Logout (Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/logout
 ```
 
 #### Logout from all devices(Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/logout-all
 ```
 
 #### Get Devices (Get)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/devices
 ```
 
@@ -50,7 +50,7 @@
 
 #### Get Contacts (Get)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact
 ```
 
@@ -58,13 +58,13 @@
 
 #### Get Single Contact (Get)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact
 ```
 
 #### Create Contact (Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact
 ```
 
@@ -82,7 +82,7 @@
 
 #### Update Contact (Put)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact/{id}
 ```
 
@@ -102,39 +102,41 @@
 
 #### Delete Contact (Delete)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact/{id}
 ```
 
 #### Multiple Delete Contact (Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact/bulk-delete
 ```
 
-###### Note : request must be array , keyword name -> ids => []
+| Arguments | Type  | Description          |
+| :-------- | :---- | :------------------- |
+| ids       | array | **Required** [2,4,6] |
 
 #### Restore (Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact/restore/{id}
 ```
 
 #### Restore All Contacts (Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact/restore-all
 ```
 
 #### Force Delete Contact (Delete)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact/force-delete/{id}
 ```
 
 #### Force Delete All Contact (Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact/force-delete-all
 ```
 
@@ -142,7 +144,7 @@
 
 #### Add favorite (Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/favorite/{id}
 ```
 
@@ -150,7 +152,7 @@
 
 #### Favorite Lists (Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/favorites
 ```
 
@@ -158,12 +160,12 @@
 
 #### Get Search Records (Post)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact/get-records
 ```
 
 #### Delete All Records (Delete)
 
-```http
+```https
   http://127.0.0.1:8000/api/v1/contact/delete-records
 ```
