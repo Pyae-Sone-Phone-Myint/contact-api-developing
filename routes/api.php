@@ -28,13 +28,15 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->middleware(AcceptJson::class)->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('contact', ContactApiController::class);
-        Route::controller(ContactApiController::class)->group(function () {
-            Route::post('contact/restore/{id}',  'restore');
-            Route::post('contact/restore-all',  'restoreAll');
-            Route::post('contact/bulk-delete',  'bulkDelete');
-            Route::delete('contact/force-delete/{id}',  'forceDelete');
-            Route::post('contact/force-delete-all',  'forceDeleteAll');
+        Route::prefix('contact')->controller(ContactApiController::class)->group(function () {
+            Route::post('restore/{id}',  'restore');
+            Route::post('restore-all',  'restoreAll');
+            Route::post('bulk-delete',  'bulkDelete');
+            Route::delete('force-delete/{id}',  'forceDelete');
+            Route::post('force-delete-all',  'forceDeleteAll');
         });
+        Route::get('contact-trash', [ContactApiController::class, 'getTrashedContacts']);
+
 
 
         Route::controller(ApiAuthController::class)->group(function () {

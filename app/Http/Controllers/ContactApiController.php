@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
+use function PHPUnit\Framework\isEmpty;
+
 class ContactApiController extends Controller
 {
     /**
@@ -244,6 +246,19 @@ class ContactApiController extends Controller
         $contact->each->forceDelete();
         return response()->json([
             "message" => "Deleted all contacts successfully"
+        ]);
+    }
+
+    public function getTrashedContacts()
+    {
+        $contacts = ContactApi::onlyTrashed()->where('user_id', Auth::id())->get()->toArray();
+        if (empty($contacts)) {
+            return response()->json([
+                "message" => "There is no contacts"
+            ]);
+        };
+        return response()->json([
+            "data" => $contacts
         ]);
     }
 

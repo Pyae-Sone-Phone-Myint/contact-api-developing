@@ -116,6 +116,12 @@
 | :-------- | :---- | :------------------- |
 | ids       | array | **Required** [2,4,6] |
 
+#### Get Trashed Contacts (Get)
+
+```https
+  http://127.0.0.1:8000/api/v1/contact-trash
+```
+
 #### Restore (Post)
 
 ```https
